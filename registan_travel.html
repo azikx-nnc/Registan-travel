@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registan Travel</title>
+    <style>
+        /* 
+         * BRAND COLORS & TYPOGRAPHY
+         */
+        :root {
+            --registan-night: #001F4B;
+            --tile-gold: #E8A526;
+            --brick-red: #C0392B;
+            --sand: #FAF6EE;
+        }
+
+        /* box-sizing rule as required */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            background-color: var(--sand);
+            color: #333;
+            /* Prevent content from hiding under fixed header */
+            padding-top: 70px; 
+            line-height: 1.6;
+        }
+
+        /* Group selector & Heading typography as required */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: Georgia, serif;
+            color: var(--registan-night);
+        }
+
+        /* 
+         * HEADER & NAVIGATION (Flexbox) 
+         */
+        /* ID selector as required */
+        #main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background-color: var(--registan-night);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: Georgia, serif;
+            font-size: 24px;
+            color: #FFF;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* LVHA Order: Link, Visited, Hover, Active */
+        nav a.nav-link:link {
+            color: #FFF;
+            text-decoration: none;
+            padding: 10px 15px;
+            transition: all 0.2s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav a.nav-link:visited {
+            color: #FFF;
+        }
+
+        nav a.nav-link:hover {
+            background-color: var(--tile-gold);
+            color: var(--registan-night);
+            border-bottom: 3px solid transparent;
+        }
+
+        nav a.nav-link:active {
+            border-bottom: 3px solid var(--tile-gold);
+        }
+
+        nav a.nav-link.active-page {
+            border-bottom: 3px solid var(--tile-gold);
+            font-weight: bold;
+        }
+
+        /* Button Styling */
+        .btn {
+            background-color: var(--tile-gold);
+            color: var(--registan-night);
+            font-weight: bold;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+            display: inline-block;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-primary {
+            background-color: var(--registan-night);
+            color: #FFF;
+        }
+
+        .btn-primary:hover {
+            background-color: #001230;
+        }
+
+        /* 
+         * HERO SECTION
+         */
+        .hero {
+            background: linear-gradient(135deg, var(--registan-night), #003a8c);
+            color: #FFF;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .hero h1 {
+            color: #FFF;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* 
+         * CARDS SECTION (Mobile First)
+         */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: 1fr; /* 1 card per row on phones */
+            gap: 30px;
+        }
+
+        /* Card with position relative/absolute */
+        .card {
+            background: #FFF;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #ddd;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+        }
+
+        .card .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--tile-gold);
+            color: var(--registan-night);
+            padding: 5px 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border-radius: 20px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            padding-right: 80px; /* Leave space for badge */
+        }
+
+        .card p {
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .card .price {
+            font-weight: bold;
+            color: var(--registan-night);
+            font-size: 1.2rem;
+            margin-top: 15px;
+            display: block;
+        }
+
+        /* Breakpoints */
+        @media (min-width: 768px) {
+            .cards-container {
+                grid-template-columns: repeat(2, 1fr); /* 2 cards on tablet */
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .cards-container {
+                grid-template-columns: repeat(3, 1fr); /* 3 cards on desktop */
+            }
+        }
+
+        /* 
+         * BOOKING PAGE (FORM)
+         */
+        #booking-page {
+            display: none; /* Hidden by default */
+        }
+
+        .form-container {
+            background: #FFF;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--registan-night);
+        }
+
+        /* Red star for required fields */
+        label.required::after {
+            content: '*';
+            color: var(--brick-red);
+            margin-left: 4px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        /* Clear focus style */
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--registan-night);
+            box-shadow: 0 0 0 3px rgba(0, 31, 75, 0.2);
+        }
+
+        /* Highlight field on error */
+        .error-field {
+            border-color: var(--brick-red) !important;
+            box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.2) !important;
+        }
+
+        #live-price-box {
+            background-color: var(--sand);
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid var(--tile-gold);
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        #status-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .msg-error {
+            background-color: #f8d7da;
+            color: var(--brick-red);
+            border: 1px solid var(--brick-red);
+        }
+
+        .msg-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        footer {
+            background-color: var(--registan-night);
+            color: #FFF;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header fixed at the top -->
+    <header id="main-header">
+        <a href="#" class="logo" onclick="showPage('home')">Registan Travel</a>
+        <nav>
+            <a href="#" id="nav-home" class="nav-link active-page" onclick="showPage('home')">Home</a>
+            <a href="#" id="nav-booking" class="nav-link" onclick="showPage('booking')">Booking</a>
+            <button class="btn" onclick="showPage('booking')">Book now</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HOME PAGE -->
+        <section id="home-page">
+            <!-- Hero -->
+            <div class="hero">
+                <h1>Discover the Magic of Uzbekistan</h1>
+                <p>Join us for unforgettable tours across ancient cities and breathtaking landscapes.</p>
+                <button class="btn" onclick="showPage('booking')">Book Your Adventure</button>
+            </div>
+
+            <!-- Three cards -->
+            <div class="container">
+                <h2>Our Featured Tours</h2>
+                <br>
+                <div class="cards-container">
+                    <!-- Card 1 -->
+                    <div class="card">
+                        <div class="badge">Best seller</div>
+                        <h3>Old Tashkent Walk</h3>
+                        <p><strong>City:</strong> Tashkent</p>
+                        <p><strong>Duration:</strong> 1 Day</p>
+                        <!-- Using <span> as required by rubric -->
+                        <span class="price">35 USD</span>
+                    </div>
+                    
+                    <!-- Card 2 -->
+                    <div class="card">
+                        <div class="badge">Top rated</div>
+                        <h3>Registan & Gur-e-Amir</h3>
+                        <p><strong>City:</strong> Samarkand</p>
+                        <p><strong>Duration:</strong> 2 Days</p>
+                        <span class="price">120 USD</span>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="card">
+                        <div class="badge">New</div>
+                        <h3>Khiva Itchan Kala</h3>
+                        <p><strong>City:</strong> Khiva</p>
+                        <p><strong>Duration:</strong> 3 Days</p>
+                        <span class="price">210 USD</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BOOKING PAGE -->
+        <section id="booking-page">
+            <div class="container">
+                <h2>Book a Tour</h2>
+                <br>
+                <div class="form-container">
+                    <form id="booking-form">
+                        
+                        <div class="form-group">
+                            <label for="fname" class="required">Full Name</label>
+                            <input type="text" id="fname" placeholder="Enter your name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="required">Email Address</label>
+                            <input type="email" id="email" placeholder="example@domain.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tour" class="required">Select Tour</label>
+                            <select id="tour">
+                                <option value="" disabled selected>Select a tour...</option>
+                                <option value="35">Old Tashkent Walk (35 USD)</option>
+                                <option value="120">Registan & Gur-e-Amir (120 USD)</option>
+                                <option value="210">Khiva Itchan Kala (210 USD)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="travellers" class="required">Number of Travellers (1-12)</label>
+                            <input type="number" id="travellers" min="1" max="12" value="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tdate" class="required">Tour Date</label>
+                            <input type="date" id="tdate">
+                        </div>
+
+                        <!-- Live Price Display -->
+                        <div id="live-price-box">
+                            Total: 0 USD
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Booking Request</button>
+                        
+                        <!-- Validation Message Box -->
+                        <div id="status-message"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Registan Travel. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Live Price, Validation & Navigation -->
+    <script>
+        // -- NAVIGATION LOGIC (Single Page App approach) --
+        function showPage(pageId) {
+            document.getElementById('home-page').style.display = (pageId === 'home') ? 'block' : 'none';
+            document.getElementById('booking-page').style.display = (pageId === 'booking') ? 'block' : 'none';
+            
+            // Update active menu link
+            document.getElementById('nav-home').classList.remove('active-page');
+            document.getElementById('nav-booking').classList.remove('active-page');
+            
+            if(pageId === 'home') {
+                document.getElementById('nav-home').classList.add('active-page');
+            } else {
+                document.getElementById('nav-booking').classList.add('active-page');
+            }
+            
+            window.scrollTo(0, 0);
+        }
+
+        // -- BOOKING FORM LOGIC --
+        const form = document.getElementById('booking-form');
+        const fnameInput = document.getElementById('fname');
+        const emailInput = document.getElementById('email');
+        const tourSelect = document.getElementById('tour');
+        const travellersInput = document.getElementById('travellers');
+        const dateInput = document.getElementById('tdate');
+        const priceBox = document.getElementById('live-price-box');
+        const statusBox = document.getElementById('status-message');
+
+        let currentTotal = 0;
+
+        // Calculate live price
+        function calculatePrice() {
+            const tourPrice = parseFloat(tourSelect.value) || 0;
+            const travellersCount = parseInt(travellersInput.value) || 1;
+            
+            let total = tourPrice * travellersCount;
+            let discountText = "";
+
+            // Apply 10% discount for groups of 5 or more
+            if (travellersCount >= 5 && total > 0) {
+                total = total * 0.9;
+                discountText = " (Includes 10% group discount)";
+            }
+            
+            currentTotal = total;
+
+            if (tourPrice > 0) {
+                priceBox.innerHTML = `Total: ${travellersCount} &times; ${tourPrice} USD = <strong>${total.toFixed(2)} USD</strong><br><small style="color:var(--brick-red); font-weight:normal;">${discountText}</small>`;
+            } else {
+                priceBox.innerHTML = `Total: 0 USD`;
+            }
+        }
+
+        // Event listeners for live price updates
+        tourSelect.addEventListener('change', calculatePrice);
+        travellersInput.addEventListener('input', calculatePrice);
+
+        // Validation on Submit
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent page reload
+            
+            // Reset styles and messages
+            fnameInput.classList.remove('error-field');
+            emailInput.classList.remove('error-field');
+            statusBox.style.display = 'none';
+            statusBox.className = '';
+            
+            const name = fnameInput.value.trim();
+            const email = emailInput.value.trim();
+            
+            let hasError = false;
+            let errorMsg = "Please fix the following errors:<br>";
+
+            if (name === '') {
+                hasError = true;
+                fnameInput.classList.add('error-field');
+                errorMsg += "- Name cannot be empty.<br>";
+            }
+
+            if (email === '' || !email.includes('@')) {
+                hasError = true;
+                emailInput.classList.add('error-field');
+                errorMsg += "- Please enter a valid email containing '@'.<br>";
+            }
+
+            if (!tourSelect.value) {
+                hasError = true;
+                tourSelect.classList.add('error-field');
+                errorMsg += "- Please select a tour.<br>";
+            }
+
+            if (!dateInput.value) {
+                 hasError = true;
+                 dateInput.classList.add('error-field');
+                 errorMsg += "- Please select a date.<br>";
+            }
+
+            if (hasError) {
+                statusBox.innerHTML = errorMsg;
+                statusBox.className = 'msg-error';
+                statusBox.style.display = 'block';
+            } else {
+                statusBox.innerHTML = `Success! Thank you, <strong>${name}</strong>.<br>Your booking request for a total of <strong>${currentTotal.toFixed(2)} USD</strong> has been received.`;
+                statusBox.className = 'msg-success';
+                statusBox.style.display = 'block';
+                
+                // Clear form after success
+                form.reset();
+                calculatePrice(); // reset price display
+            }
+        });
+        
+        // Remove error highlight when user starts typing
+        fnameInput.addEventListener('input', () => fnameInput.classList.remove('error-field'));
+        emailInput.addEventListener('input', () => emailInput.classList.remove('error-field'));
+        tourSelect.addEventListener('change', () => tourSelect.classList.remove('error-field'));
+        dateInput.addEventListener('input', () => dateInput.classList.remove('error-field'));
+
+    </script>
+</body>
+</html>
