@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registan Travel</title>
     <style>
-        /* 
-         * BRAND COLORS & TYPOGRAPHY
-         */
         :root {
             --registan-night: #001F4B;
             --tile-gold: #E8A526;
@@ -15,7 +12,6 @@
             --sand: #FAF6EE;
         }
 
-        /* box-sizing rule as required */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -27,21 +23,15 @@
             font-size: 16px;
             background-color: var(--sand);
             color: #333;
-            /* Prevent content from hiding under fixed header */
             padding-top: 70px; 
             line-height: 1.6;
         }
 
-        /* Group selector & Heading typography as required */
         h1, h2, h3, h4, h5, h6 {
             font-family: Georgia, serif;
             color: var(--registan-night);
         }
 
-        /* 
-         * HEADER & NAVIGATION (Flexbox) 
-         */
-        /* ID selector as required */
         #main-header {
             position: fixed;
             top: 0;
@@ -70,7 +60,6 @@
             gap: 15px;
         }
 
-        /* LVHA Order: Link, Visited, Hover, Active */
         nav a.nav-link:link {
             color: #FFF;
             text-decoration: none;
@@ -98,7 +87,6 @@
             font-weight: bold;
         }
 
-        /* Button Styling */
         .btn {
             background-color: var(--tile-gold);
             color: var(--registan-night);
@@ -127,9 +115,6 @@
             background-color: #001230;
         }
 
-        /* 
-         * HERO SECTION
-         */
         .hero {
             background: linear-gradient(135deg, var(--registan-night), #003a8c);
             color: #FFF;
@@ -148,9 +133,6 @@
             margin-bottom: 30px;
         }
 
-        /* 
-         * CARDS SECTION (Mobile First)
-         */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -159,11 +141,10 @@
 
         .cards-container {
             display: grid;
-            grid-template-columns: 1fr; /* 1 card per row on phones */
+            grid-template-columns: 1fr;
             gap: 30px;
         }
 
-        /* Card with position relative/absolute */
         .card {
             background: #FFF;
             border-radius: 8px;
@@ -193,7 +174,7 @@
 
         .card h3 {
             margin-bottom: 10px;
-            padding-right: 80px; /* Leave space for badge */
+            padding-right: 80px;
         }
 
         .card p {
@@ -209,24 +190,20 @@
             display: block;
         }
 
-        /* Breakpoints */
         @media (min-width: 768px) {
             .cards-container {
-                grid-template-columns: repeat(2, 1fr); /* 2 cards on tablet */
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (min-width: 1200px) {
             .cards-container {
-                grid-template-columns: repeat(3, 1fr); /* 3 cards on desktop */
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        /* 
-         * BOOKING PAGE (FORM)
-         */
         #booking-page {
-            display: none; /* Hidden by default */
+            display: none;
         }
 
         .form-container {
@@ -249,7 +226,6 @@
             color: var(--registan-night);
         }
 
-        /* Red star for required fields */
         label.required::after {
             content: '*';
             color: var(--brick-red);
@@ -270,14 +246,12 @@
             transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        /* Clear focus style */
         input:focus, select:focus {
             outline: none;
             border-color: var(--registan-night);
             box-shadow: 0 0 0 3px rgba(0, 31, 75, 0.2);
         }
 
-        /* Highlight field on error */
         .error-field {
             border-color: var(--brick-red) !important;
             box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.2) !important;
@@ -323,42 +297,34 @@
 </head>
 <body>
 
-    <!-- Header fixed at the top -->
     <header id="main-header">
         <a href="#" class="logo" onclick="showPage('home')">Registan Travel</a>
         <nav>
             <a href="#" id="nav-home" class="nav-link active-page" onclick="showPage('home')">Home</a>
-            <a href="#" id="nav-booking" class="nav-link" onclick="showPage('booking')">Booking</a>
-            <button class="btn" onclick="showPage('booking')">Book now</button>
+            <a href="booking.html"><button class="btn" onclick="">Book now</button></a>
         </nav>
     </header>
 
     <main>
-        <!-- HOME PAGE -->
         <section id="home-page">
-            <!-- Hero -->
             <div class="hero">
                 <h1>Discover the Magic of Uzbekistan</h1>
                 <p>Join us for unforgettable tours across ancient cities and breathtaking landscapes.</p>
-                <button class="btn" onclick="showPage('booking')">Book Your Adventure</button>
+                <a href="booking.html"><button class="btn" onclick="showPage('booking')">Book Your Adventure</button></a>
             </div>
 
-            <!-- Three cards -->
             <div class="container">
                 <h2>Our Featured Tours</h2>
                 <br>
                 <div class="cards-container">
-                    <!-- Card 1 -->
                     <div class="card">
                         <div class="badge">Best seller</div>
                         <h3>Old Tashkent Walk</h3>
                         <p><strong>City:</strong> Tashkent</p>
                         <p><strong>Duration:</strong> 1 Day</p>
-                        <!-- Using <span> as required by rubric -->
                         <span class="price">35 USD</span>
                     </div>
                     
-                    <!-- Card 2 -->
                     <div class="card">
                         <div class="badge">Top rated</div>
                         <h3>Registan & Gur-e-Amir</h3>
@@ -367,7 +333,6 @@
                         <span class="price">120 USD</span>
                     </div>
 
-                    <!-- Card 3 -->
                     <div class="card">
                         <div class="badge">New</div>
                         <h3>Khiva Itchan Kala</h3>
@@ -379,7 +344,6 @@
             </div>
         </section>
 
-        <!-- BOOKING PAGE -->
         <section id="booking-page">
             <div class="container">
                 <h2>Book a Tour</h2>
@@ -417,14 +381,12 @@
                             <input type="date" id="tdate">
                         </div>
 
-                        <!-- Live Price Display -->
                         <div id="live-price-box">
                             Total: 0 USD
                         </div>
 
                         <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Booking Request</button>
                         
-                        <!-- Validation Message Box -->
                         <div id="status-message"></div>
                     </form>
                 </div>
@@ -436,14 +398,11 @@
         <p>&copy; 2026 Registan Travel. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript for Live Price, Validation & Navigation -->
     <script>
-        // -- NAVIGATION LOGIC (Single Page App approach) --
         function showPage(pageId) {
             document.getElementById('home-page').style.display = (pageId === 'home') ? 'block' : 'none';
             document.getElementById('booking-page').style.display = (pageId === 'booking') ? 'block' : 'none';
             
-            // Update active menu link
             document.getElementById('nav-home').classList.remove('active-page');
             document.getElementById('nav-booking').classList.remove('active-page');
             
@@ -456,7 +415,6 @@
             window.scrollTo(0, 0);
         }
 
-        // -- BOOKING FORM LOGIC --
         const form = document.getElementById('booking-form');
         const fnameInput = document.getElementById('fname');
         const emailInput = document.getElementById('email');
@@ -468,7 +426,6 @@
 
         let currentTotal = 0;
 
-        // Calculate live price
         function calculatePrice() {
             const tourPrice = parseFloat(tourSelect.value) || 0;
             const travellersCount = parseInt(travellersInput.value) || 1;
@@ -476,7 +433,6 @@
             let total = tourPrice * travellersCount;
             let discountText = "";
 
-            // Apply 10% discount for groups of 5 or more
             if (travellersCount >= 5 && total > 0) {
                 total = total * 0.9;
                 discountText = " (Includes 10% group discount)";
@@ -491,15 +447,12 @@
             }
         }
 
-        // Event listeners for live price updates
         tourSelect.addEventListener('change', calculatePrice);
         travellersInput.addEventListener('input', calculatePrice);
 
-        // Validation on Submit
         form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent page reload
+            e.preventDefault();
             
-            // Reset styles and messages
             fnameInput.classList.remove('error-field');
             emailInput.classList.remove('error-field');
             statusBox.style.display = 'none';
@@ -544,13 +497,11 @@
                 statusBox.className = 'msg-success';
                 statusBox.style.display = 'block';
                 
-                // Clear form after success
                 form.reset();
-                calculatePrice(); // reset price display
+                calculatePrice();
             }
         });
         
-        // Remove error highlight when user starts typing
         fnameInput.addEventListener('input', () => fnameInput.classList.remove('error-field'));
         emailInput.addEventListener('input', () => emailInput.classList.remove('error-field'));
         tourSelect.addEventListener('change', () => tourSelect.classList.remove('error-field'));
