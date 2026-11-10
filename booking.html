@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registan Travel - Book Now</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .layout-wrapper {
+            display: flex;
+            width: 100%;
+        }
+
+        .visual-side {
+            display: none;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            width: 40%;
+            color: white;
+            padding: 40px;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .visual-side h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .visual-side p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .back-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: #fff;
+        }
+
+        .form-side {
+            width: 100%;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .page-indicator {
+            color: #ff0000;
+            font-weight: 900;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            border-bottom: 3px solid #ff0000;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        label.required::after {
+            content: '*';
+            color: #ff0000;
+            margin-left: 4px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            background-color: #f0f2f5;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            background-color: #e4e6e9;
+            box-shadow: inset 0 0 0 2px #2a5298;
+        }
+
+        .error-field {
+            background-color: #ffe6e6 !important;
+            box-shadow: inset 0 0 0 2px #ff0000 !important;
+        }
+
+        #live-price-box {
+            background: #2a5298;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(42, 82, 152, 0.2);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #ff4b2b, #ff416c);
+            color: #FFF;
+            font-weight: bold;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 65, 108, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        #status-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .msg-error {
+            background-color: #fff0f0;
+            color: #d8000c;
+            border: 1px solid #ffb3b3;
+        }
+
+        .msg-success {
+            background-color: #f0fff0;
+            color: #270;
+            border: 1px solid #b3ffb3;
+        }
+
+        @media (min-width: 900px) {
+            .visual-side {
+                display: flex;
+            }
+            .form-side {
+                width: 60%;
+                padding: 60px;
+            }
+        }
+        
+        .mobile-back {
+            display: block;
+            margin-bottom: 20px;
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        @media (min-width: 900px) {
+            .mobile-back { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="layout-wrapper">
+        
+        <div class="visual-side">
+            <div>
+                <h2>Your Journey<br>Begins Here.</h2>
+                <p>Secure your spot on our exclusive tours across the heart of the Silk Road.</p>
+            </div>
+            <div>
+                <a href="index.html" class="back-link">&larr; Return to Home</a>
+            </div>
+        </div>
+
+        <div class="form-side">
+            <div class="form-container">
+                
+                <a href="index.html" class="mobile-back">&larr; Back to Home</a>
+
+                <h1 class="page-indicator">Booking</h1>
+                
+                <form id="booking-form">
+                    
+                    <div class="form-group">
+                        <label for="fname" class="required">Passenger Name</label>
+                        <input type="text" id="fname" placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="required">Contact Email</label>
+                        <input type="email" id="email" placeholder="you@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tour" class="required">Destinations</label>
+                        <select id="tour">
+                            <option value="" disabled selected>-- Choose a destination --</option>
+                            <option value="35">Old Tashkent Walk (35 USD)</option>
+                            <option value="120">Registan & Gur-e-Amir (120 USD)</option>
+                            <option value="210">Khiva Itchan Kala (210 USD)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="travellers" class="required">Group Size (1-12)</label>
+                        <input type="number" id="travellers" min="1" max="12" value="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tdate" class="required">Expected Date</label>
+                        <input type="date" id="tdate">
+                    </div>
+
+                    <div id="live-price-box">
+                        Final Price: 0 USD
+                    </div>
+
+                    <button type="submit" class="btn-submit">Confirm Booking</button>
+                    
+                    <div id="status-message"></div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const form = document.getElementById('booking-form');
+        const fnameInput = document.getElementById('fname');
+        const emailInput = document.getElementById('email');
+        const tourSelect = document.getElementById('tour');
+        const travellersInput = document.getElementById('travellers');
+        const dateInput = document.getElementById('tdate');
+        const priceBox = document.getElementById('live-price-box');
+        const statusBox = document.getElementById('status-message');
+
+        let currentTotal = 0;
+
+        function calculatePrice() {
+            const tourPrice = parseFloat(tourSelect.value) || 0;
+            const travellersCount = parseInt(travellersInput.value) || 1;
+            
+            let total = tourPrice * travellersCount;
+            let discountText = "";
+
+            if (travellersCount >= 5 && total > 0) {
+                total = total * 0.9;
+                discountText = "<br><span style='font-size:0.9rem; color:#ffd700;'>★ 10% Group Discount Applied ★</span>";
+            }
+            
+            currentTotal = total;
+
+            if (tourPrice > 0) {
+                priceBox.innerHTML = `Calculation: ${travellersCount} &times; ${tourPrice} USD<br><strong style="font-size:1.5rem; display:block; margin-top:5px;">Final Price: ${total.toFixed(2)} USD</strong>${discountText}`;
+            } else {
+                priceBox.innerHTML = `Final Price: 0 USD`;
+            }
+        }
+
+        tourSelect.addEventListener('change', calculatePrice);
+        travellersInput.addEventListener('input', calculatePrice);
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+            fnameInput.classList.remove('error-field');
+            emailInput.classList.remove('error-field');
+            statusBox.style.display = 'none';
+            statusBox.className = '';
+            
+            const name = fnameInput.value.trim();
+            const email = emailInput.value.trim();
+            
+            let hasError = false;
+            let errorMsg = "Please review the following:<br>";
+
+            if (name === '') {
+                hasError = true;
+                fnameInput.classList.add('error-field');
+                errorMsg += "- Name is required.<br>";
+            }
+
+            if (email === '' || !email.includes('@')) {
+                hasError = true;
+                emailInput.classList.add('error-field');
+                errorMsg += "- Valid email (with '@') is required.<br>";
+            }
+
+            if (!tourSelect.value) {
+                hasError = true;
+                tourSelect.classList.add('error-field');
+                errorMsg += "- Please choose a tour.<br>";
+            }
+
+            if (!dateInput.value) {
+                 hasError = true;
+                 dateInput.classList.add('error-field');
+                 errorMsg += "- Please select a date.<br>";
+            }
+
+            if (hasError) {
+                statusBox.innerHTML = errorMsg;
+                statusBox.className = 'msg-error';
+                statusBox.style.display = 'block';
+            } else {
+                statusBox.innerHTML = `<strong>Booking Confirmed!</strong><br>Thank you, ${name}. Your total of <strong>${currentTotal.toFixed(2)} USD</strong> is locked in.`;
+                statusBox.className = 'msg-success';
+                statusBox.style.display = 'block';
+                
+                form.reset();
+                calculatePrice(); 
+            }
+        });
+        
+        fnameInput.addEventListener('input', () => fnameInput.classList.remove('error-field'));
+        emailInput.addEventListener('input', () => emailInput.classList.remove('error-field'));
+        tourSelect.addEventListener('change', () => tourSelect.classList.remove('error-field'));
+        dateInput.addEventListener('input', () => dateInput.classList.remove('error-field'));
+    </script>
+</body>
+</html>
